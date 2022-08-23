@@ -1,4 +1,4 @@
-import { Navigate, useRoutes } from 'react-router-dom';
+import { Navigate, useNavigate, useRoutes } from 'react-router-dom';
 
 // routes
 import MainRoutes from './MainRoutes';
@@ -6,21 +6,25 @@ import AuthenticationRoutes from './AuthenticationRoutes';
 import config from 'config';
 import MainLayout from 'layout/MainLayout';
 import MinimalLayout from 'layout/MinimalLayout';
+import useProfile from 'hooks/useProfile';
+import MinimalRoutes from './MinimalRoutes';
 
 // ==============================|| ROUTING RENDER ||============================== //
 
 export default function ThemeRoutes() {
-    const getUser = localStorage.getItem('users') || null;
+    const [profile] = useProfile();
 
-    if (getUser !== null) {
-        if (getUser.role === 'seller' || getUser.role === 'admin') {
-            MainRoutes.element = <MainLayout />;
-            AuthenticationRoutes.element = <Navigate to="/" />;
+    if (profile) {
+        MainRoutes.element = <MainLayout />;
+        if (profile.role === 'seller' || profile.role === 'admin') {
+            AuthenticationRoutes.element = <Navigate to="/app/dashboard" />;
         } else {
-            MainRoutes.element = <MinimalLayout />;
+            AuthenticationRoutes.element = <Navigate to="/" />;
         }
     } else {
+        MainRoutes.element = <Navigate to="/auth/login" />;
         AuthenticationRoutes.element = <MinimalLayout />;
     }
-    return useRoutes([MainRoutes, AuthenticationRoutes], config.basename);
+
+    return useRoutes([MainRoutes, AuthenticationRoutes, MinimalRoutes], config.basename);
 }

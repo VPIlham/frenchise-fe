@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { login } from '../../../../services/user';
 import {
     Box,
     Button,
@@ -33,10 +32,11 @@ import AnimateButton from 'ui-component/extended/AnimateButton';
 // assets
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { login } from 'services/user';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const Login = ({ ...others }) => {
+const FormLogin = ({ ...others }) => {
     const theme = useTheme();
     const scriptedRef = useScriptRef();
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
@@ -61,7 +61,11 @@ const Login = ({ ...others }) => {
                 if (val.status !== 500) {
                     setUsers(val);
                     localStorage.setItem('users', JSON.stringify(val.data.data));
-                    navigate('/');
+                    if (val.data.data.role === 'buyer') {
+                        navigate('/');
+                    } else {
+                        navigate('/app');
+                    }
                 }
             })
             .catch((err) => {
@@ -203,4 +207,4 @@ const Login = ({ ...others }) => {
     );
 };
 
-export default Login;
+export default FormLogin;

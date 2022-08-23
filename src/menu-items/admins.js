@@ -1,17 +1,34 @@
 // assets
-import { IconBrandChrome, IconHelp, IconUsers, IconReceipt, IconBuildingStore, IconOutlet, IconBuilding } from '@tabler/icons';
+import {
+    IconBrandChrome,
+    IconHelp,
+    IconUsers,
+    IconReceipt,
+    IconBuildingStore,
+    IconOutlet,
+    IconBuilding,
+    IconDashboard
+} from '@tabler/icons';
 
 // constant
-const icons = { IconBrandChrome, IconHelp, IconUsers, IconReceipt, IconBuildingStore, IconOutlet, IconBuilding };
+const icons = { IconBrandChrome, IconHelp, IconUsers, IconReceipt, IconBuildingStore, IconOutlet, IconBuilding, IconDashboard };
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
-const users = {
+const admins = {
     id: 'admin',
     title: 'Admin',
     caption: 'Selamat datang',
     type: 'group',
     children: [
+        {
+            id: 'dashboard',
+            title: 'Dashboard',
+            type: 'item',
+            url: '/app/dashboard',
+            icon: icons.IconDashboard,
+            breadcrumbs: false
+        },
         {
             id: 'users',
             title: 'Users',
@@ -22,13 +39,13 @@ const users = {
                     id: 'list',
                     title: 'List',
                     type: 'item',
-                    url: '/users'
+                    url: '/app/users'
                 },
                 {
                     id: 'create',
                     title: 'Create',
                     type: 'item',
-                    url: '/users/create'
+                    url: '/app/users/create'
                 }
             ]
         },
@@ -42,13 +59,13 @@ const users = {
                     id: 'list',
                     title: 'List',
                     type: 'item',
-                    url: '/orders'
+                    url: '/app/orders'
                 },
                 {
                     id: 'create',
                     title: 'Create',
                     type: 'item',
-                    url: '/orders/create'
+                    url: '/app/orders/create'
                 }
             ]
         },
@@ -62,13 +79,13 @@ const users = {
                     id: 'list',
                     title: 'List',
                     type: 'item',
-                    url: '/products'
+                    url: '/app/products'
                 },
                 {
                     id: 'create',
                     title: 'Create',
                     type: 'item',
-                    url: '/products/create'
+                    url: '/app/productscreate'
                 }
             ]
         },
@@ -82,17 +99,17 @@ const users = {
                     id: 'list',
                     title: 'List',
                     type: 'item',
-                    url: '/brands'
+                    url: '/app/brands'
                 },
                 {
                     id: 'create',
                     title: 'Create',
                     type: 'item',
-                    url: '/brands/create'
+                    url: '/app/brands/create'
                 }
             ]
         }
     ]
 };
 
-export default users;
+export default admins;
