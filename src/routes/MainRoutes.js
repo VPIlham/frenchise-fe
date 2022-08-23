@@ -24,6 +24,14 @@ const MainRoutes = {
         {
             path: '/products',
             element: <ProductPage />
+        },
+        {
+            path: '/brands',
+            element: <ProductPage />
+        },
+        {
+            path: '/orders',
+            element: <ProductPage />
         }
     ]
 };
