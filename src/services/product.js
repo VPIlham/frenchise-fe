@@ -17,7 +17,7 @@ const addProducts = async (values) => {
         };
 
         formData.append('image', values.image, values.image.name);
-        formData.append('data', tempObj);
+        formData.append('data', JSON.stringify(tempObj));
 
         const result = await axios({
             method: 'POST',
