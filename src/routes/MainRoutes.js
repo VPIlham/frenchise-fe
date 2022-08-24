@@ -13,6 +13,7 @@ const ProductPage = Loadable(lazy(() => import('views/products/index')));
 
 // Seller page routing
 const CreateProductPage = Loadable(lazy(() => import('views/products/create')));
+const MyBrandPage = Loadable(lazy(() => import('views/brands/mybrand')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -47,6 +48,10 @@ const MainRoutes = {
         {
             path: '/brands',
             element: <ProtectedRoute component={ProductPage} roles={['admin']} />
+        },
+        {
+            path: '/brands/my-brand',
+            element: <ProtectedRoute component={MyBrandPage} roles={['seller']} />
         },
         {
             path: '/orders',

@@ -26,6 +26,54 @@ const sellers = {
             url: '/app/dashboard',
             icon: icons.IconDashboard,
             breadcrumbs: false
+        },
+        {
+            id: 'products',
+            title: 'Products',
+            type: 'collapse',
+            icon: icons.IconBuildingStore,
+            children: [
+                {
+                    id: 'list',
+                    title: 'List',
+                    type: 'item',
+                    url: '/app/products'
+                },
+                {
+                    id: 'create',
+                    title: 'Create',
+                    type: 'item',
+                    url: '/app/products/create'
+                }
+            ]
+        },
+        {
+            id: 'brands',
+            title: 'Brands',
+            type: 'collapse',
+            icon: icons.IconBuilding,
+            children: [
+                {
+                    id: 'list',
+                    title: 'My Brand',
+                    type: 'item',
+                    url: '/app/brands/my-brand'
+                }
+            ]
+        },
+        {
+            id: 'orders',
+            title: 'Orders',
+            type: 'collapse',
+            icon: icons.IconReceipt,
+            children: [
+                {
+                    id: 'list',
+                    title: 'List',
+                    type: 'item',
+                    url: '/app/orders'
+                }
+            ]
         }
     ]
 };
