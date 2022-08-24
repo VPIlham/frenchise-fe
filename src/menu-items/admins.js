@@ -85,7 +85,7 @@ const admins = {
                     id: 'create',
                     title: 'Create',
                     type: 'item',
-                    url: '/app/productscreate'
+                    url: '/app/products/create'
                 }
             ]
         },

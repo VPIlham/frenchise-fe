@@ -5,18 +5,20 @@ import { Box, Grid, Button, TextField, TextareaAutosize } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 
 import { addProducts } from '../../services/product';
-import { getUserId } from 'core/constant';
+import useProfile from 'hooks/useProfile';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const ProductsPage = () => {
     const navigation = useNavigate();
 
+    const [profile] = useProfile();
+
     const [form, setForm] = useState({
         name: '',
         price: 0,
         description: '',
-        UserId: getUserId,
+        UserId: profile.id,
         BrandId: 1,
         image: ''
     });
@@ -64,12 +66,15 @@ const ProductsPage = () => {
                     <Grid item xs={7}>
                         <span>Deskripsi</span>
                         <br />
-                        <TextareaAutosize
+                        <TextField
+                            style={{ marginTop: 8 }}
+                            id="standard-multiline-static"
                             onChange={(e) => setForm({ ...form, description: e.target.value })}
-                            aria-label="minimum height"
-                            minRows={5}
-                            style={{ 'margin-top': '8px', width: 500 }}
+                            multiline
+                            rows={5}
                             placeholder="Masukkan deskripsi"
+                            variant="filled"
+                            fullWidth
                         />
                     </Grid>
                     <Grid item xs={7}>
