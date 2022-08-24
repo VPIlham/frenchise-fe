@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 import { getBrandBySeller, updateBrandBySeller } from 'services/brand';
 import MainCard from 'ui-component/cards/MainCard';
 import moment from 'moment';
+import { URL_DOMAIN } from '../../core/constant';
 
 const MyBrandPage = () => {
     const [isLoading, setLoading] = useState(true);
-    const [brand, setBrand] = useState([]);
+    const [brandImg, setBrandImg] = useState([]);
 
     const [form, setForm] = useState({
         name: '',
@@ -28,10 +29,10 @@ const MyBrandPage = () => {
     useEffect(() => {
         setLoading(false);
         getBrandBySeller((result) => {
-            setBrand(result.data);
+            setBrandImg(result.data.Upload.path ?? null);
             setForm({
                 name: result.data.name,
-                images: result.data.images,
+                images: result.data.Upload.path ?? null,
                 totalEmployees: result.data.totalEmployees,
                 startOperation: result.data.startOperation,
                 category: result.data.category,
@@ -103,13 +104,32 @@ const MyBrandPage = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
-                            <span item xs={5}>
-                                Image
-                            </span>
-                            <Button variant="contained" component="label" style={{ 'margin-left': '15px' }}>
-                                Upload File
-                                <input type="file" hidden onChange={(e) => setForm({ ...form, image: e.target.files[0] })} />
-                            </Button>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    Image
+                                    <Button variant="contained" component="label" style={{ 'margin-left': '15px' }}>
+                                        Upload File
+                                        <input
+                                            type="file"
+                                            hidden
+                                            accept="image/*"
+                                            onChange={(e) => {
+                                                setForm({ ...form, images: e.target.files[0] });
+                                                setBrandImg(URL.createObjectURL(e.target.files[0]));
+                                            }}
+                                        />
+                                    </Button>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    Image Sekarang
+                                    {form.images === brandImg ? (
+                                        <img src={`${URL_DOMAIN}${form.images}`} alt={form.name} width="300" loading="lazy" />
+                                    ) : (
+                                        <img src={`${brandImg}`} alt={form.name} width="300" loading="lazy" />
+                                    )}
+                                </Grid>
+                            </Grid>
                         </Grid>
                         <Button
                             variant="contained"

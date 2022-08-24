@@ -39,7 +39,7 @@ const updateBrandBySeller = async (values) => {
             category
         };
 
-        formData.append('image', values.image, values.image.name);
+        formData.append('image', images, images.name);
         formData.append('data', JSON.stringify(tempObj));
 
         const brands = await axios({
@@ -50,7 +50,9 @@ const updateBrandBySeller = async (values) => {
                 'Content-Type': 'multipart/form-data'
             }
         });
+
         Swal.fire('Berhasil', 'Update Brand Berhasil!', 'success');
+
         return brands;
     } catch (err) {
         console.log(err);
