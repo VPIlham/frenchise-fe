@@ -1,15 +1,14 @@
 import { lazy } from 'react';
 
 // project imports
-import Loadable from 'ui-component/Loadable';
-import MinimalLayout from 'layout/MinimalLayout';
 import LandingPage from 'views/landing';
+import CustomLayout from 'layout/CustomLayout';
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const LandingRoutes = {
     path: '/',
-    element: <MinimalLayout />,
+    element: <CustomLayout />,
     children: [
         {
             path: '/',
