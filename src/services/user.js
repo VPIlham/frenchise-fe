@@ -16,16 +16,53 @@ import { URL_API } from '../core/constant';
 
 const addUser = async (user) => {
     try {
+        const {
+            name,
+            email,
+            password,
+            role,
+            name_brand: nameBrand,
+            total_employee: totalEmployees,
+            start_operation: startOperation,
+            category
+        } = user;
+
+        let tempObj = {};
+
+        if (role === 'buyer') {
+            tempObj = {
+                email,
+                password,
+                name,
+                role
+            };
+        } else {
+            tempObj = {
+                email,
+                password,
+                name,
+                role,
+                brand: {
+                    name: nameBrand,
+                    totalEmployees,
+                    startOperation,
+                    category
+                }
+            };
+        }
+
         const result = await axios({
             method: 'POST',
-            url: `${URL_API}/create`,
-            data: user
+            url: `${URL_API}/auth/register`,
+            data: tempObj
         });
 
-        // Swal.fire('Add Users', 'Users has been added', 'success');
-        console.log(result);
+        Swal.fire('Success', 'Registrasi Berhasil', 'success');
+        return result;
     } catch (err) {
         console.log(err);
+        Swal.fire('Failed', 'Registrasi Gagal', 'error');
+        return err;
     }
 };
 
