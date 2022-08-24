@@ -7,7 +7,7 @@ import { AccountCircleOutlined, CalendarTodayOutlined, MoreHorizOutlined } from 
 // Third party
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { URL } from 'core/constant';
+import { URL_DOMAIN } from 'core/constant';
 import toRupiah from 'utils/toRupiah';
 
 // Page
@@ -35,7 +35,7 @@ const CardItem = ({ data, handleDelete, handleEdit, handleClick }) => {
                     alt="green iguana"
                     height="150"
                     width="200"
-                    image={Upload && `${URL}${Upload.path}`}
+                    image={Upload && `${URL_DOMAIN}${Upload.path}`}
                     sx={{ mb: 2, borderRadius: 2, objectFit: 'cover' }}
                 />
                 <Typography gutterBottom sx={{ fontSize: 18, fontWeight: 500 }} component="div">
