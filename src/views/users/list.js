@@ -49,16 +49,14 @@ const ListUserPage = () => {
             label: 'Email',
             options: {
                 filter: true,
-                sort: false,
-                customBodyRender: (value) => moment(value).format('DD MMMM YYYY')
+                sort: false
             }
         },
         {
             name: 'role',
             label: 'Role',
             options: {
-                filter: false,
-                customBodyRender: (value) => <Avatar src={`${URL_DOMAIN}${value}`} />
+                filter: false
             }
         },
         {

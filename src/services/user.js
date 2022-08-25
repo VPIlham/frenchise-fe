@@ -6,11 +6,44 @@ const getUserAll = async (cb) => {
     try {
         const users = await axios({
             method: 'GET',
-            url: `${URL_API}/users`
+            url: `${URL_API}/users?sort=createdAt&direction=desc&page=1&pageSize=10&q`
         });
         cb(users.data);
     } catch (err) {
         console.log(err);
+    }
+};
+
+const getUserById = async (cb, id) => {
+    try {
+        const users = await axios({
+            method: 'GET',
+            url: `${URL_API}/users/${id}`
+        });
+        cb(users.data);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const updateUserById = async (values, id) => {
+    try {
+        const { name, email } = values;
+        const formData = {
+            name,
+            email
+        };
+
+        const users = await axios({
+            method: 'PUT',
+            url: `${URL_API}/users/${id}`,
+            data: formData
+        });
+
+        Swal.fire('Success', 'Ubah Users Berhasil', 'success');
+        return users;
+    } catch (err) {
+        return err;
     }
 };
 
@@ -80,4 +113,4 @@ const login = async (user) => {
     }
 };
 
-export { addUser, login, getUserAll };
+export { addUser, login, getUserAll, getUserById, updateUserById };

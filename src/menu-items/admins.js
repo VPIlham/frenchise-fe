@@ -40,12 +40,6 @@ const admins = {
                     title: 'List',
                     type: 'item',
                     url: '/app/users'
-                },
-                {
-                    id: 'create',
-                    title: 'Create',
-                    type: 'item',
-                    url: '/app/users/create'
                 }
             ]
         },
@@ -100,12 +94,6 @@ const admins = {
                     title: 'List',
                     type: 'item',
                     url: '/app/brands'
-                },
-                {
-                    id: 'create',
-                    title: 'Create',
-                    type: 'item',
-                    url: '/app/brands/create'
                 }
             ]
         }
