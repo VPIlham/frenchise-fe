@@ -38,7 +38,7 @@ const getBrandBySeller = async (cb, id, userId) => {
     }
 };
 
-const updateBrandBySeller = async (values) => {
+const updateBrand = async (values) => {
     try {
         const formData = new FormData();
 
@@ -76,4 +76,4 @@ const updateBrandBySeller = async (values) => {
     }
 };
 
-export { getBrandBySeller, getBrandAll, updateBrandBySeller, getBrandById };
+export { getBrandBySeller, getBrandAll, updateBrand, getBrandById };

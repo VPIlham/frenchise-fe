@@ -2,17 +2,17 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { URL_API } from '../core/constant';
 
-// const getUser = async (cb) => {
-//     try {
-//         let users = await axios({
-//             method: 'GET',
-//             url: URL_API
-//         });
-//         cb(users);
-//     } catch (err) {
-//         console.log(err);
-//     }
-// };
+const getUserAll = async (cb) => {
+    try {
+        const users = await axios({
+            method: 'GET',
+            url: `${URL_API}/users`
+        });
+        cb(users.data);
+    } catch (err) {
+        console.log(err);
+    }
+};
 
 const addUser = async (user) => {
     try {
@@ -80,4 +80,4 @@ const login = async (user) => {
     }
 };
 
-export { addUser, login };
+export { addUser, login, getUserAll };

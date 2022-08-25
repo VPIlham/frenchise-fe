@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import moment from 'moment';
-import { getBrandAll } from 'services/brand';
 import MUIDataTable from 'mui-datatables';
 import MainCard from 'ui-component/cards/MainCard';
 import { Avatar, Button, Grid } from '@mui/material';
 import { URL_DOMAIN } from 'core/constant';
 import { useNavigate } from 'react-router';
+import { getUserAll } from 'services/user';
 
-const ListBrand = () => {
-    const [brands, setBrands] = useState([]);
+const ListUserPage = () => {
+    const [users, setUsers] = useState([]);
     const navigate = useNavigate();
     const getData = () => {
-        getBrandAll((result) => {
+        getUserAll((result) => {
             const data = result.data.map((value) => {
                 value = {
                     ...value,
@@ -22,7 +22,7 @@ const ListBrand = () => {
                 }
                 return value;
             });
-            setBrands(data);
+            setUsers(data);
         });
     };
 
@@ -32,21 +32,21 @@ const ListBrand = () => {
 
     const edit = (id) => {
         console.log(id);
-        navigate(`/app/brands/${id}`);
+        navigate(`/app/users/${id}`);
     };
 
     const columns = [
         {
             name: 'name',
-            label: 'Nama Brand',
+            label: 'Nama Lengkap',
             options: {
                 filter: true,
                 sort: true
             }
         },
         {
-            name: 'startOperation',
-            label: 'Didirikan Tgl',
+            name: 'email',
+            label: 'Email',
             options: {
                 filter: true,
                 sort: false,
@@ -54,19 +54,11 @@ const ListBrand = () => {
             }
         },
         {
-            name: 'image',
-            label: 'Gambar',
+            name: 'role',
+            label: 'Role',
             options: {
                 filter: false,
-                customBodyRender: (value, tableMeta, updateValue) => <Avatar alt="Remy Sharp" src={`${URL_DOMAIN}${value}`} />
-            }
-        },
-        {
-            name: 'totalEmployees',
-            label: 'Total Karyawan',
-            options: {
-                filter: true,
-                sort: false
+                customBodyRender: (value) => <Avatar src={`${URL_DOMAIN}${value}`} />
             }
         },
         {
@@ -74,7 +66,7 @@ const ListBrand = () => {
             label: 'Action',
             options: {
                 filter: false,
-                customBodyRender: (value, tableMeta, updateValue) => (
+                customBodyRender: (value) => (
                     <>
                         <Button variant="outlined" color="primary" sx={{ mr: 1 }} onClick={() => edit(value)}>
                             Edit
@@ -86,14 +78,14 @@ const ListBrand = () => {
     ];
 
     return (
-        <MainCard title="List Brands">
+        <MainCard title="List Users">
             <Grid container spacing={2}>
                 <Grid item xs={12} justifyItems="center" alignItems="center">
-                    <MUIDataTable title="Brands" data={brands} columns={columns} />
+                    <MUIDataTable title="Users" data={users} columns={columns} />
                 </Grid>
             </Grid>
         </MainCard>
     );
 };
 
-export default ListBrand;
+export default ListUserPage;

@@ -2,7 +2,7 @@ import { FormControl, Button, Grid, Input, InputLabel, Select, MenuItem, TextFie
 import { IconDeviceFloppy } from '@tabler/icons';
 import useProfile from 'hooks/useProfile';
 import { useEffect, useState } from 'react';
-import { getBrandBySeller, updateBrandBySeller } from 'services/brand';
+import { getBrandBySeller, updateBrand } from 'services/brand';
 import MainCard from 'ui-component/cards/MainCard';
 import moment from 'moment';
 import { URL_DOMAIN } from '../../core/constant';
@@ -20,7 +20,7 @@ const MyBrandPage = () => {
     });
 
     const submitHandler = () => {
-        updateBrandBySeller(form);
+        updateBrand(form);
         // navigation('/products');
     };
 

@@ -12,6 +12,8 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 const ProductPage = Loadable(lazy(() => import('views/products/index')));
 const ListBrandPage = Loadable(lazy(() => import('views/brands/list')));
 const EditBrandPage = Loadable(lazy(() => import('views/brands/edit')));
+const ListUserPage = Loadable(lazy(() => import('views/users/list')));
+const EditUserPage = Loadable(lazy(() => import('views/users/edit')));
 
 // Seller page routing
 const CreateProductPage = Loadable(lazy(() => import('views/products/create')));
@@ -33,7 +35,11 @@ const MainRoutes = {
         },
         {
             path: '/users',
-            element: <ProtectedRoute component={ProductPage} roles={['admin']} />
+            element: <ProtectedRoute component={ListUserPage} roles={['admin']} />
+        },
+        {
+            path: '/users/:id',
+            element: <ProtectedRoute component={EditUserPage} roles={['admin']} />
         },
         {
             path: '/users/create',
