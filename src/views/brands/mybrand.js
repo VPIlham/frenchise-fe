@@ -28,17 +28,21 @@ const MyBrandPage = () => {
 
     useEffect(() => {
         setLoading(false);
-        getBrandBySeller((result) => {
-            setBrandImg(result.data.Upload.path ?? null);
-            setForm({
-                name: result.data.name,
-                images: result.data.Upload.path ?? null,
-                totalEmployees: result.data.totalEmployees,
-                startOperation: result.data.startOperation,
-                category: result.data.category,
-                id: result.data.id
-            });
-        }, profile.id);
+        getBrandBySeller(
+            (result) => {
+                setBrandImg(result.data.Upload.path ?? null);
+                setForm({
+                    name: result.data.name,
+                    images: result.data.Upload.path ?? null,
+                    totalEmployees: result.data.totalEmployees,
+                    startOperation: result.data.startOperation,
+                    category: result.data.category,
+                    id: result.data.id
+                });
+            },
+            profile.Brand.id,
+            profile.id
+        );
     }, []);
 
     return (

@@ -14,11 +14,23 @@ const getBrandAll = async (cb) => {
     }
 };
 
-const getBrandBySeller = async (cb, id) => {
+const getBrandById = async (cb, id) => {
     try {
         const brands = await axios({
             method: 'GET',
             url: `${URL_API}/brands/${id}?populate=Upload`
+        });
+        return cb(brands.data);
+    } catch (err) {
+        return err;
+    }
+};
+
+const getBrandBySeller = async (cb, id, userId) => {
+    try {
+        const brands = await axios({
+            method: 'GET',
+            url: `${URL_API}/brands/${id}?populate=Upload&userId=${userId}`
         });
         return cb(brands.data);
     } catch (err) {
@@ -64,4 +76,4 @@ const updateBrandBySeller = async (values) => {
     }
 };
 
-export { getBrandBySeller, getBrandAll, updateBrandBySeller };
+export { getBrandBySeller, getBrandAll, updateBrandBySeller, getBrandById };

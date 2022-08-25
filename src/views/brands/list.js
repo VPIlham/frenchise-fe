@@ -5,10 +5,11 @@ import MUIDataTable from 'mui-datatables';
 import MainCard from 'ui-component/cards/MainCard';
 import { Avatar, Button, Grid } from '@mui/material';
 import { URL_DOMAIN } from 'core/constant';
+import { useNavigate } from 'react-router';
 
 const ListBrand = () => {
     const [brands, setBrands] = useState([]);
-
+    const navigate = useNavigate();
     const getData = () => {
         getBrandAll((result) => {
             const data = result.data.map((value) => {
@@ -36,7 +37,7 @@ const ListBrand = () => {
 
     const edit = (id) => {
         console.log(id);
-        getData();
+        navigate(`/app/brands/${id}`);
     };
 
     const columns = [
