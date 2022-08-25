@@ -88,13 +88,13 @@ const MyBrandPage = () => {
                         </Grid>
                         <Grid item xs={6}>
                             <FormControl fullWidth>
-                                <InputLabel htmlFor="my-input">Category</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Category</InputLabel>
                                 <Select
-                                    id="demo-simple-category"
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
                                     name="category"
                                     value={form.category}
                                     onChange={(e) => setForm({ ...form, category: e.target.value })}
-                                    style={{ padding: 1 }}
                                 >
                                     <MenuItem value="Industri Makanan & Minuman">Industri Makanan & Minuman</MenuItem>
                                     <MenuItem value="Industri Ritel">Industri Ritel</MenuItem>

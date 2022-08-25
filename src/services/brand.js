@@ -6,7 +6,7 @@ const getBrandAll = async (cb) => {
     try {
         const brands = await axios({
             method: 'GET',
-            url: URL_API
+            url: `${URL_API}/brands?populate=Upload`
         });
         cb(brands.data);
     } catch (err) {
@@ -39,7 +39,10 @@ const updateBrandBySeller = async (values) => {
             category
         };
 
-        formData.append('image', images, images.name);
+        if (typeof images === 'object') {
+            formData.append('image', images, images.name);
+        }
+
         formData.append('data', JSON.stringify(tempObj));
 
         const brands = await axios({

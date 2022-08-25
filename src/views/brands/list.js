@@ -1,0 +1,110 @@
+import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { getBrandAll } from 'services/brand';
+import MUIDataTable from 'mui-datatables';
+import MainCard from 'ui-component/cards/MainCard';
+import { Avatar, Button, Grid } from '@mui/material';
+import { URL_DOMAIN } from 'core/constant';
+
+const ListBrand = () => {
+    const [brands, setBrands] = useState([]);
+
+    const getData = () => {
+        getBrandAll((result) => {
+            const data = result.data.map((value) => {
+                value = {
+                    ...value,
+                    image: null
+                };
+                if (value.Upload != null) {
+                    value.image = value.Upload.path;
+                }
+                return value;
+            });
+            setBrands(data);
+        });
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const hapus = (id) => {
+        console.log(id);
+        getData();
+    };
+
+    const edit = (id) => {
+        console.log(id);
+        getData();
+    };
+
+    const columns = [
+        {
+            name: 'name',
+            label: 'Nama Brand',
+            options: {
+                filter: true,
+                sort: true
+            }
+        },
+        {
+            name: 'startOperation',
+            label: 'Didirikan Tgl',
+            options: {
+                filter: true,
+                sort: false,
+                customBodyRender: (value) => moment(value).format('DD MMMM YYYY')
+            }
+        },
+        {
+            name: 'image',
+            label: 'Gambar',
+            options: {
+                filter: false,
+                customBodyRender: (value, tableMeta, updateValue) => <Avatar alt="Remy Sharp" src={`${URL_DOMAIN}${value}`} />
+            }
+        },
+        {
+            name: 'totalEmployees',
+            label: 'Total Karyawan',
+            options: {
+                filter: true,
+                sort: false
+            }
+        },
+        {
+            name: 'id',
+            label: 'Action',
+            options: {
+                filter: false,
+                customBodyRender: (value, tableMeta, updateValue) => (
+                    <>
+                        <Button variant="outlined" color="primary" sx={{ mr: 1 }} onClick={() => edit(value)}>
+                            Edit
+                        </Button>
+                        <Button variant="outlined" onClick={() => hapus(value)} color="warning">
+                            Hapus
+                        </Button>
+                    </>
+                )
+            }
+        }
+    ];
+
+    const options = {
+        filterType: 'checkbox'
+    };
+
+    return (
+        <MainCard title="List Brands">
+            <Grid container spacing={2}>
+                <Grid item xs={12} justifyItems="center" alignItems="center">
+                    <MUIDataTable title="Brands" data={brands} columns={columns} options={options} />
+                </Grid>
+            </Grid>
+        </MainCard>
+    );
+};
+
+export default ListBrand;
