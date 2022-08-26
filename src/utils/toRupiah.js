@@ -43,7 +43,7 @@ const dotsFormatter = (target, settings) => {
 
 const symbolFormatter = (nominal, settings) => {
     if (settings.symbol === 'Rp') {
-        nominal = settings.formal ? `Rp${nominal}` : `Rp ${nominal}`;
+        nominal = settings.formal ? `Rp.${nominal}` : `Rp.${nominal}`;
     } else if (settings.symbol === 'IDR') {
         nominal = settings.formal ? `${nominal} IDR` : `IDR ${nominal}`;
     }
@@ -82,7 +82,7 @@ const defaultSettings = {
     formal: true,
     dot: '.',
     decimal: ',',
-    floatingPoint: 2,
+    floatingPoint: 0,
     replaceZeroDecimals: false, // Rp100.000,-
     removeZeroDecimals: false,
     k: false, // k

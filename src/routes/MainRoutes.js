@@ -10,6 +10,7 @@ const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')))
 
 // Admin page routing
 const ProductPage = Loadable(lazy(() => import('views/products/index')));
+const EditProductPage = Loadable(lazy(() => import('views/products/edit')));
 const ListBrandPage = Loadable(lazy(() => import('views/brands/list')));
 const EditBrandPage = Loadable(lazy(() => import('views/brands/edit')));
 const ListUserPage = Loadable(lazy(() => import('views/users/list')));
@@ -53,6 +54,10 @@ const MainRoutes = {
         {
             path: '/products/create',
             element: <ProtectedRoute component={CreateProductPage} roles={['admin', 'seller']} />
+        },
+        {
+            path: '/products/:id',
+            element: <ProtectedRoute component={EditProductPage} roles={['admin', 'seller']} />
         },
         {
             path: '/brands',
