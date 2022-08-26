@@ -42,13 +42,14 @@ const updateBrand = async (values) => {
     try {
         const formData = new FormData();
 
-        const { name, images, totalEmployees, startOperation, category, id } = values;
+        const { name, images, totalEmployees, startOperation, category, description, id } = values;
 
         const tempObj = {
             name,
             totalEmployees,
             startOperation,
-            category
+            category,
+            description
         };
 
         if (typeof images === 'object') {

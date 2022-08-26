@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Box, Drawer, useMediaQuery } from '@mui/material';
+import { Box, Drawer, Typography, useMediaQuery } from '@mui/material';
 
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -23,7 +23,9 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }) => {
         <>
             <Box sx={{ display: { xs: 'block', md: 'none' } }}>
                 <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
-                    <LogoSection />
+                    {/* <Typography sx={{ fontFamily: 'Poppins', fontSize: 24, fontWeight: 500 }}>
+                        Buka<span style={{ color: '#673ab7' }}>franchise</span>
+                    </Typography> */}
                 </Box>
             </Box>
             <BrowserView>

@@ -7,14 +7,14 @@ import { AccountCircleOutlined, CalendarTodayOutlined, MoreHorizOutlined } from 
 // Third party
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { URL_DOMAIN } from 'core/constant';
+import { IMG_DEFAULT, URL_DOMAIN } from 'core/constant';
 import toRupiah from 'utils/toRupiah';
 
 // Page
 const CardItem = ({ data, handleDelete, handleEdit, handleClick }) => {
     const theme = useTheme();
 
-    const { id, name, Upload, Items, category } = data;
+    const { id, name, Upload, Items, category, slug } = data;
 
     console.log(data);
 
@@ -28,6 +28,7 @@ const CardItem = ({ data, handleDelete, handleEdit, handleClick }) => {
                     boxShadow: '0px 4px 50px rgba(0, 0, 0, 0.05)'
                 }
             }}
+            onClick={() => handleClick(slug)}
         >
             <CardContent>
                 <CardMedia
@@ -35,7 +36,7 @@ const CardItem = ({ data, handleDelete, handleEdit, handleClick }) => {
                     alt="green iguana"
                     height="150"
                     width="200"
-                    image={Upload && `${URL_DOMAIN}${Upload.path}`}
+                    image={(Upload && `${URL_DOMAIN}${Upload.path}`) || IMG_DEFAULT}
                     sx={{ mb: 2, borderRadius: 2, objectFit: 'cover' }}
                 />
                 <Typography gutterBottom sx={{ fontSize: 18, fontWeight: 500 }} component="div">
@@ -55,74 +56,7 @@ const CardItem = ({ data, handleDelete, handleEdit, handleClick }) => {
                 )}
 
                 {Items.length === 0 && <Chip label="Belum Tersedia" sx={{ borderRadius: 2, marginTop: 0.5 }} />}
-
-                {/* <Stack direction="row" justifyContent="space-between">
-                    <div style={{ display: 'flex', alignItems: 'center', columnGap: 10, marginTop: 24, color: '#9e9e9e' }}>
-                        <CalendarTodayOutlined />
-                        {moment(createdAt).format('DD MMM YYYY')}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', columnGap: 10, marginTop: 24, color: '#9e9e9e' }}>
-                        <AccountCircleOutlined />
-                        Oleh Admin
-                    </div>
-                </Stack> */}
             </CardContent>
-            {/* <CardActions>
-                <Button
-                    variant="outlined"
-                    disableElevation
-                    fullWidth
-                    onClick={handleClick}
-                    sx={{
-                        border: '1px solid #EAECEE',
-                        borderRadius: 32,
-                        color: 'black',
-                        '&:hover': {
-                            color: theme.palette.custom.greenDark,
-                            borderColor: theme.palette.custom.greenDark,
-                            filter: 'brightness(1.1)'
-                        }
-                    }}
-                >
-                    Melihat rincian
-                </Button>
-                <IconButton aria-label="actions" size="small" onClick={handleClickMore}>
-                    <MoreHorizOutlined fontSize="small" />
-                </IconButton>
-                <Menu
-                    id="menu-popular-card"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleCloseMore}
-                    variant="selectedMenu"
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right'
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right'
-                    }}
-                >
-                    <MenuItem
-                        onClick={() => {
-                            handleEdit();
-                            setAnchorEl(null);
-                        }}
-                    >
-                        Edit
-                    </MenuItem>
-                    <MenuItem
-                        onClick={() => {
-                            handleDelete();
-                            setAnchorEl(null);
-                        }}
-                    >
-                        Delete
-                    </MenuItem>
-                </Menu>
-            </CardActions> */}
         </Card>
     );
 };

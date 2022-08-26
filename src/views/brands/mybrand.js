@@ -16,7 +16,8 @@ const MyBrandPage = () => {
         images: '',
         totalEmployees: '',
         startOperation: '',
-        category: ''
+        category: '',
+        description: ''
     });
 
     const submitHandler = () => {
@@ -30,13 +31,14 @@ const MyBrandPage = () => {
         setLoading(false);
         getBrandBySeller(
             (result) => {
-                setBrandImg(result.data.Upload.path ?? null);
+                setBrandImg(result.data.Upload?.path ?? null);
                 setForm({
                     name: result.data.name,
-                    images: result.data.Upload.path ?? null,
+                    images: result.data.Upload?.path ?? null,
                     totalEmployees: result.data.totalEmployees,
                     startOperation: result.data.startOperation,
                     category: result.data.category,
+                    description: result.data.description,
                     id: result.data.id
                 });
             },
@@ -45,11 +47,13 @@ const MyBrandPage = () => {
         );
     }, []);
 
+    console.log(form);
+
     return (
         <MainCard title="My Brand">
             <Grid container spacing={2}>
                 <Grid item xs={9} justifyItems="center" alignItems="center">
-                    <Grid container spacing={2}>
+                    <Grid container spacing={3}>
                         <Grid item xs={6}>
                             <FormControl fullWidth>
                                 <TextField
@@ -77,12 +81,11 @@ const MyBrandPage = () => {
                             <FormControl fullWidth>
                                 <TextField
                                     id="date"
-                                    style={{ padding: 8 }}
                                     label="Start Operation"
                                     type="date"
                                     value={moment(form.startOperation).format('YYYY-MM-DD')}
                                     name="startOperation"
-                                    sx={{ width: 220 }}
+                                    // sx={{ width: 220 }}
                                     onChange={(e) => setForm({ ...form, startOperation: e.target.value })}
                                     InputLabelProps={{
                                         shrink: true
@@ -96,6 +99,7 @@ const MyBrandPage = () => {
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
+                                    label="Category"
                                     name="category"
                                     value={form.category}
                                     onChange={(e) => setForm({ ...form, category: e.target.value })}
@@ -108,10 +112,25 @@ const MyBrandPage = () => {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
+                            <span>Description</span>
+                            <br />
+                            <TextField
+                                style={{ marginTop: 8 }}
+                                id="standard-multiline-static"
+                                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                                multiline
+                                rows={5}
+                                value={form.description}
+                                placeholder="Masukkan deskripsi"
+                                variant="filled"
+                                fullWidth
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     Image
-                                    <Button variant="contained" component="label" style={{ 'margin-left': '15px' }}>
+                                    <Button variant="contained" component="label" style={{ marginLeft: '15px' }}>
                                         Upload File
                                         <input
                                             type="file"

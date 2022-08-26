@@ -23,7 +23,8 @@ const EditBrandPage = () => {
         images: '',
         totalEmployees: '',
         startOperation: '',
-        category: ''
+        category: '',
+        description: ''
     });
 
     useEffect(() => {
@@ -36,6 +37,7 @@ const EditBrandPage = () => {
                 totalEmployees: result.data.totalEmployees,
                 startOperation: result.data.startOperation,
                 category: result.data.category,
+                description: result.data.description,
                 id: result.data.id
             });
         }, params.id);
@@ -108,6 +110,21 @@ const EditBrandPage = () => {
                                 </Select>
                             </FormControl>
                         </Grid>
+                        <Grid item xs={7}>
+                            <span>Description</span>
+                            <br />
+                            <TextField
+                                style={{ marginTop: 8 }}
+                                id="standard-multiline-static"
+                                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                                multiline
+                                rows={5}
+                                value={form.description}
+                                placeholder="Masukkan deskripsi"
+                                variant="filled"
+                                fullWidth
+                            />
+                        </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
@@ -142,6 +159,7 @@ const EditBrandPage = () => {
                                 </Grid>
                             </Grid>
                         </Grid>
+
                         <Button
                             variant="contained"
                             onClick={() => submitHandler()}

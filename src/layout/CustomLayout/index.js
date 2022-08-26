@@ -39,18 +39,20 @@ const CustomLayout = () => {
                 <Container>
                     <Grid container direction="row" alignItems="center" display="flex" justifyContent="space-between">
                         <Grid item>
-                            <Typography sx={{ fontFamily: 'Poppins', fontSize: 24, fontWeight: 500 }}>
-                                Buka<span style={{ color: '#673ab7' }}>franchise</span>
-                            </Typography>
+                            <Link to="/" style={{ textDecoration: 'none' }}>
+                                <Typography sx={{ fontFamily: 'Poppins', fontSize: 24, fontWeight: 500 }}>
+                                    Buka<span style={{ color: '#673ab7' }}>franchise</span>
+                                </Typography>
+                            </Link>
                         </Grid>
                         {profile === null && (
                             <Grid item spacing={2}>
-                                <Link to={`${location.pathname}/auth/login`} style={{ textDecoration: 'none' }}>
+                                <Link to="/auth/login" style={{ textDecoration: 'none' }}>
                                     <Button sx={{ marginRight: 3 }} variant="outlined">
                                         Masuk
                                     </Button>
                                 </Link>
-                                <Link to={`${location.pathname}/auth/register`} style={{ textDecoration: 'none' }}>
+                                <Link to="/auth/register" style={{ textDecoration: 'none' }}>
                                     <Button disableElevation variant="contained" color="secondary">
                                         Daftar
                                     </Button>
@@ -60,7 +62,7 @@ const CustomLayout = () => {
                         {profile !== null && (
                             <Grid item spacing={2}>
                                 {profile.role === 'buyer' && (
-                                    <Link to={`${location.pathname}/myorders`} style={{ textDecoration: 'none' }}>
+                                    <Link to="/myorders" style={{ textDecoration: 'none' }}>
                                         <Button sx={{ marginRight: 3 }} color="secondary">
                                             Pesanan Saya
                                         </Button>{' '}
@@ -68,7 +70,7 @@ const CustomLayout = () => {
                                     </Link>
                                 )}
                                 {(profile.role === 'admin' || profile.role === 'seller') && (
-                                    <Link to={`${location.pathname}/app`} style={{ textDecoration: 'none' }}>
+                                    <Link to="/app" style={{ textDecoration: 'none' }}>
                                         <Button sx={{ marginRight: 3 }} color="secondary">
                                             Dashboard
                                         </Button>

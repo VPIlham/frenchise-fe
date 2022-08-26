@@ -1,49 +1,42 @@
 // material-ui
-import { Typography, Button, Grid, ImageList, ImageListItem, CardMedia, Stack } from '@mui/material';
+import { Typography, Button, Grid, ImageList, ImageListItem, CardMedia, Stack, Skeleton } from '@mui/material';
 import { Box, fontFamily } from '@mui/system';
 import axios from 'axios';
 import { URL_API } from 'core/constant';
 import useProfile from 'hooks/useProfile';
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import CardItem from './components/CardItem';
 
 // ==============================|| SAMPLE PAGE ||============================== //
-const itemData = [
-    {
-        img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
-        title: 'Books'
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
-        title: 'Sink'
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
-        title: 'Kitchen'
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee',
-        title: 'Storage'
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
-        title: 'Candle'
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4',
-        title: 'Coffee table'
-    }
-];
 
-const category = [{}];
+const SkeletonCard = () => (
+    <>
+        <Grid item lg={3} md={3} sm={6} xs={6}>
+            <Skeleton variant="rectangular" animation="wave" height={350} width="100%" sx={{ borderRadius: 2 }} />
+        </Grid>
+        <Grid item lg={3} md={3} sm={6} xs={6}>
+            <Skeleton variant="rectangular" animation="wave" height={350} width="100%" sx={{ borderRadius: 2 }} />
+        </Grid>
+        <Grid item lg={3} md={3} sm={6} xs={6}>
+            <Skeleton variant="rectangular" animation="wave" height={350} width="100%" sx={{ borderRadius: 2 }} />
+        </Grid>
+        <Grid item lg={3} md={3} sm={6} xs={6}>
+            <Skeleton variant="rectangular" animation="wave" height={350} width="100%" sx={{ borderRadius: 2 }} />
+        </Grid>
+    </>
+);
 
 const LandingPage = () => {
     const [profile] = useProfile();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const [dataBrands, setDataBrands] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const get = async () => {
         try {
@@ -63,15 +56,22 @@ const LandingPage = () => {
                 });
 
                 setDataBrands(data);
+                setIsLoading(false);
             }
         } catch (error) {
             console.log(error);
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
+        setIsLoading(true);
         get();
     }, []);
+
+    const handleClick = (slug) => {
+        navigate(`${location.pathname}/franchise/${slug}`);
+    };
 
     return (
         <>
@@ -107,14 +107,18 @@ const LandingPage = () => {
             </Box>
 
             <div style={{ marginTop: 48 }}>
-                <Typography variant="h2">Franchise Kami</Typography>
+                <Typography variant="h2">Kemitraan Kami</Typography>
 
                 <Grid container spacing={5} marginTop={0.1}>
-                    {dataBrands.map((item) => (
-                        <Grid key={item.id} item lg={3} md={3} sm={6} xs={6}>
-                            <CardItem data={item} />
-                        </Grid>
-                    ))}
+                    {isLoading ? (
+                        <SkeletonCard />
+                    ) : (
+                        dataBrands.map((item) => (
+                            <Grid key={item.id} item lg={3} md={3} sm={6} xs={6}>
+                                <CardItem data={item} handleClick={handleClick} />
+                            </Grid>
+                        ))
+                    )}
                 </Grid>
             </div>
         </>

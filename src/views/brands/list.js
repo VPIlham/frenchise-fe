@@ -89,7 +89,16 @@ const ListBrand = () => {
         <MainCard title="List Brands">
             <Grid container spacing={2}>
                 <Grid item xs={12} justifyItems="center" alignItems="center">
-                    <MUIDataTable title="Brands" data={brands} columns={columns} />
+                    <MUIDataTable
+                        data={brands}
+                        columns={columns}
+                        options={{
+                            download: false,
+                            print: false,
+                            filter: false,
+                            selectableRows: 'none'
+                        }}
+                    />
                 </Grid>
             </Grid>
         </MainCard>
