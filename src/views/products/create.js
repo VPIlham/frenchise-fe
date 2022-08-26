@@ -1,18 +1,44 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Grid, Button, TextField, TextareaAutosize } from '@mui/material';
+// material-ui
+import { Box, Grid, Button, TextField, Select, MenuItem } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 
-import { addProducts } from '../../services/product';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+// project imports
+import { addProducts, getProducts } from '../../services/product';
 import useProfile from 'hooks/useProfile';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
-const ProductsPage = () => {
+const AddProductsPage = () => {
     const navigation = useNavigate();
 
     const [profile] = useProfile();
+    // const [isLoading, setLoading] = useState(true);
+    // const [brandImg, setBrandImg] = useState([]);
+
+    const [products, setProducts] = useState([]);
+
+    const getData = () => {
+        getProducts((result) => {
+            const data = result.data.map((value) => {
+                value = {
+                    ...value,
+                    image: null
+                };
+                if (value.Upload != null) {
+                    value.image = value.Upload.path;
+                }
+                return value;
+            });
+            setProducts(data);
+        });
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
 
     const [form, setForm] = useState({
         name: '',
@@ -25,7 +51,7 @@ const ProductsPage = () => {
 
     const submitHandler = () => {
         addProducts(form);
-        // navigation('/products');
+        navigation('/app/products');
     };
 
     return (
@@ -53,6 +79,20 @@ const ProductsPage = () => {
                             style={{ 'margin-top': '8px' }}
                             onChange={(e) => setForm({ ...form, price: e.target.value })}
                         />
+                    </Grid>
+                    <Grid item xs={7}>
+                        <span>Brand</span>
+                        <br />
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Brand"
+                            onChange={(e) => setForm({ ...form, brandId: e.target.value })}
+                        >
+                            {/* <MenuItem value={50}>{Brands.name}</MenuItem> */}
+                            <MenuItem value={50}>Ten</MenuItem>
+                            <MenuItem value={50}>Ten</MenuItem>
+                        </Select>
                     </Grid>
                     <Grid item xs={7}>
                         <span item xs={4}>
@@ -88,4 +128,4 @@ const ProductsPage = () => {
     );
 };
 
-export default ProductsPage;
+export default AddProductsPage;
