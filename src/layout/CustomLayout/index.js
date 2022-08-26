@@ -62,7 +62,7 @@ const CustomLayout = () => {
                         {profile !== null && (
                             <Grid item spacing={2}>
                                 {profile.role === 'buyer' && (
-                                    <Link to="/myorders" style={{ textDecoration: 'none' }}>
+                                    <Link to="/pesanan-saya" style={{ textDecoration: 'none' }}>
                                         <Button sx={{ marginRight: 3 }} color="secondary">
                                             Pesanan Saya
                                         </Button>{' '}

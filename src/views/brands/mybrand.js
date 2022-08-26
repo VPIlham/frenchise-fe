@@ -42,7 +42,7 @@ const MyBrandPage = () => {
                     id: result.data.id
                 });
             },
-            profile.Brand.id,
+            profile?.Brand?.id,
             profile.id
         );
     }, []);
