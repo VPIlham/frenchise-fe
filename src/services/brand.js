@@ -26,11 +26,11 @@ const getBrandById = async (cb, id) => {
     }
 };
 
-const getBrandBySeller = async (cb, id, userId) => {
+const getBrandBySeller = async (cb, id) => {
     try {
         const brands = await axios({
             method: 'GET',
-            url: `${URL_API}/brands/${id}?populate=Upload&userId=${userId}`
+            url: `${URL_API}/brands/${id}?populate=Upload`
         });
         return cb(brands.data);
     } catch (err) {
