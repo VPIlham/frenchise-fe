@@ -14,7 +14,7 @@ const ProductsPage = () => {
     const [profile] = useProfile();
 
     const getData = () => {
-        const filter = profile.role === 'seller' ? `&userId=${profile.id}` : null;
+        const filter = profile.role === 'seller' ? `&userId=${profile.id}` : '';
         getProducts((result) => {
             const data = result.data.map((value) => {
                 value = {
@@ -98,7 +98,7 @@ const ProductsPage = () => {
                         <Button variant="outlined" color="primary" sx={{ mr: 1 }} onClick={() => edit(value)}>
                             Edit
                         </Button>
-                        <Button variant="outlined" onClick={() => hapus(value)} color="warning">
+                        <Button variant="outlined" onClick={() => hapus(value)} color="error">
                             Hapus
                         </Button>
                     </div>
@@ -108,14 +108,20 @@ const ProductsPage = () => {
     ];
 
     const options = {
-        filterType: 'checkbox'
+        filter: false,
+        download: false,
+        print: false,
+        viewColumns: false,
+        search: false,
+        elevation: 0,
+        selectableRows: 'none'
     };
 
     return (
         <MainCard title="List Products">
             <Grid container spacing={2}>
                 <Grid item xs={12} justifyItems="center" alignItems="center">
-                    <MUIDataTable title="Brands" data={products} columns={columns} options={options} />
+                    <MUIDataTable data={products} columns={columns} options={options} />
                 </Grid>
             </Grid>
         </MainCard>

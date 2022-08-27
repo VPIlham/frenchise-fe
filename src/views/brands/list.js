@@ -93,9 +93,12 @@ const ListBrand = () => {
                         data={brands}
                         columns={columns}
                         options={{
+                            filter: false,
                             download: false,
                             print: false,
-                            filter: false,
+                            viewColumns: false,
+                            search: false,
+                            elevation: 0,
                             selectableRows: 'none'
                         }}
                     />

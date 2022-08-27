@@ -17,7 +17,8 @@ import {
     FormControl,
     MenuItem,
     Select,
-    InputLabel
+    InputLabel,
+    Alert
 } from '@mui/material';
 import { Box, fontFamily } from '@mui/system';
 import { IconCalendar, IconTag, IconUsers } from '@tabler/icons';
@@ -126,7 +127,7 @@ const DetailBrandPage = () => {
                         <Grid item container alignItems="center" spacing={4}>
                             <Grid item>
                                 <Avatar
-                                    src={`${URL_DOMAIN}${dataBrand?.Upload?.path}` || IMG_DEFAULT}
+                                    src={(dataBrand?.Upload?.path && `${URL_DOMAIN}${dataBrand?.Upload?.path}`) || IMG_DEFAULT}
                                     variant="rounded"
                                     sx={{ height: 150, width: 150 }}
                                 />
@@ -142,7 +143,9 @@ const DetailBrandPage = () => {
                                     </Typography>
                                 )}
 
-                                {dataBrand?.Items.length === 0 && <Chip label="Belum Tersedia" sx={{ borderRadius: 2, marginTop: 0.5 }} />}
+                                {dataBrand?.Items.length === 0 && (
+                                    <Chip label="Paket Belum Tersedia" sx={{ borderRadius: 2, marginTop: 0.5 }} />
+                                )}
                             </Grid>
                         </Grid>
                     </Grid>
@@ -192,7 +195,7 @@ const DetailBrandPage = () => {
                     </Grid>
                 </Grid>
                 <Grid item lg={4}>
-                    <Card>
+                    <Card sx={{ boxShadow: '0px 4px 50px rgba(0, 0, 0, 0.05)' }}>
                         <CardHeader title="Pilih Paket Kemitraan" />
                         <CardContent sx={{ pt: 0 }}>
                             {profile === null && (
@@ -204,23 +207,29 @@ const DetailBrandPage = () => {
                             )}
                             {profile !== null && (
                                 <>
-                                    <FormControl fullWidth>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            // value={form.category}
-                                            onChange={(e) => handleChangePackage(e.target.value)}
-                                        >
-                                            {dataBrand?.Items.map((item) => (
-                                                <MenuItem key={item.id} value={item.id}>
-                                                    {item.name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                    <Typography sx={{ fontSize: 20, fontWeight: 500 }} marginTop={2}>
-                                        {toRupiah(form.price, { formal: false, spaceBeforeUnit: true, floatingPoint: 0 })}
-                                    </Typography>
+                                    {dataBrand?.Items.length > 0 ? (
+                                        <>
+                                            <FormControl fullWidth>
+                                                <Select
+                                                    labelId="demo-simple-select-label"
+                                                    id="demo-simple-select"
+                                                    // value={form.category}
+                                                    onChange={(e) => handleChangePackage(e.target.value)}
+                                                >
+                                                    {dataBrand.Items.map((item) => (
+                                                        <MenuItem key={item.id} value={item.id}>
+                                                            {item.name}
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                            <Typography sx={{ fontSize: 20, fontWeight: 500 }} marginTop={2}>
+                                                {toRupiah(form.price, { formal: false, spaceBeforeUnit: true, floatingPoint: 0 })}
+                                            </Typography>
+                                        </>
+                                    ) : (
+                                        <Alert severity="info">Paket Belum tersedia</Alert>
+                                    )}
 
                                     <FormControl fullWidth sx={{ marginTop: 4 }}>
                                         <InputLabel id="demo-simple-select-label">Pembayaran</InputLabel>
@@ -266,30 +275,34 @@ const DetailBrandPage = () => {
                         Daftar Paket
                     </Typography>
 
-                    {dataBrand?.Items.map((item) => (
-                        <Card sx={{ marginBottom: 3 }}>
-                            <CardContent>
-                                <Grid container columnSpacing={4}>
-                                    <Grid item lg={3}>
-                                        <Avatar
-                                            src={`${URL_DOMAIN}${item.Upload?.path}` || IMG_DEFAULT}
-                                            variant="rounded"
-                                            sx={{ height: 150, width: 150 }}
-                                        />
+                    {dataBrand?.Items.length > 0 ? (
+                        dataBrand?.Items.map((item) => (
+                            <Card sx={{ marginBottom: 3 }}>
+                                <CardContent>
+                                    <Grid container columnSpacing={1}>
+                                        <Grid item lg={2}>
+                                            <Avatar
+                                                src={`${URL_DOMAIN}${item.Upload?.path}` || IMG_DEFAULT}
+                                                variant="rounded"
+                                                sx={{ height: 100, width: 100 }}
+                                            />
+                                        </Grid>
+                                        <Grid item lg={10}>
+                                            <Typography sx={{ fontSize: 20, fontWeight: 400 }} marginBottom={2}>
+                                                {item.name}
+                                            </Typography>
+                                            <Typography variant="h3" marginBottom={3}>
+                                                {toRupiah(item.price, { formal: false, spaceBeforeUnit: true, floatingPoint: 0 })}
+                                            </Typography>
+                                            <Typography marginBottom={2}>{item.description}</Typography>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item lg={9}>
-                                        <Typography sx={{ fontSize: 20, fontWeight: 400 }} marginBottom={2}>
-                                            {item.name}
-                                        </Typography>
-                                        <Typography variant="h3" marginBottom={3}>
-                                            {toRupiah(item.price, { formal: false, spaceBeforeUnit: true, floatingPoint: 0 })}
-                                        </Typography>
-                                        <Typography marginBottom={2}>{item.description}</Typography>
-                                    </Grid>
-                                </Grid>
-                            </CardContent>
-                        </Card>
-                    ))}
+                                </CardContent>
+                            </Card>
+                        ))
+                    ) : (
+                        <Typography>Belum tersedia</Typography>
+                    )}
                 </Grid>
             </Grid>
         </>

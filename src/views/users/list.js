@@ -79,7 +79,19 @@ const ListUserPage = () => {
         <MainCard title="List Users">
             <Grid container spacing={2}>
                 <Grid item xs={12} justifyItems="center" alignItems="center">
-                    <MUIDataTable title="Users" data={users} columns={columns} />
+                    <MUIDataTable
+                        data={users}
+                        columns={columns}
+                        options={{
+                            filter: false,
+                            download: false,
+                            print: false,
+                            viewColumns: false,
+                            search: false,
+                            elevation: 0,
+                            selectableRows: 'none'
+                        }}
+                    />
                 </Grid>
             </Grid>
         </MainCard>

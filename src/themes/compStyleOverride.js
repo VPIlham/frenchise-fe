@@ -182,6 +182,63 @@ export default function componentStyleOverrides(theme) {
                     background: theme.colors?.grey700
                 }
             }
+        },
+        MuiTableCell: {
+            styleOverrides: {
+                head: {
+                    backgroundColor: '#FAFAFA !important',
+                    borderRadius: 10
+                }
+            }
+        },
+        // Override MUIDatatables Style
+        MUIDataTable: {
+            styleOverrides: {
+                root: {
+                    border: '1px solid #EAECEE'
+                },
+                paper: {
+                    borderRadius: 10
+                },
+                responsiveScroll: {
+                    maxHeight: '580px'
+                }
+            }
+        },
+        MUIDataTableSelectCell: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#FFF'
+                }
+                // headerCell: {
+                //     zIndex: 1
+                // },
+                // fixedHeader: {
+                //     zIndex: 3,
+                //     borderRadius: 10,
+                //     backgroundColor: '#FAFAFA !important'
+                // }
+            }
+        },
+        MUIDataTableHeadCell: {
+            styleOverrides: {
+                root: {
+                    padding: '10px 16px 10px 16px',
+                    fontWeight: 600
+                },
+                fixedHeader: {
+                    zIndex: 1,
+                    borderRadius: 10,
+                    backgroundColor: '#FAFAFA'
+                }
+            }
+        },
+        MUIDataTablePagination: {
+            styleOverrides: {
+                tableCellContainer: {
+                    borderBottom: 0
+                }
+            }
         }
     };
 }

@@ -34,13 +34,13 @@ const sellers = {
             icon: icons.IconBuildingStore,
             children: [
                 {
-                    id: 'list',
+                    id: 'products',
                     title: 'List',
                     type: 'item',
                     url: '/app/products'
                 },
                 {
-                    id: 'create',
+                    id: 'products-create',
                     title: 'Create',
                     type: 'item',
                     url: '/app/products/create'
@@ -54,7 +54,7 @@ const sellers = {
             icon: icons.IconBuilding,
             children: [
                 {
-                    id: 'list',
+                    id: 'brands',
                     title: 'My Brand',
                     type: 'item',
                     url: '/app/brands/my-brand'
@@ -68,7 +68,7 @@ const sellers = {
             icon: icons.IconReceipt,
             children: [
                 {
-                    id: 'list',
+                    id: 'orders',
                     title: 'List',
                     type: 'item',
                     url: '/app/orders'

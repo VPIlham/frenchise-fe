@@ -55,7 +55,7 @@ const CardItem = ({ data, handleDelete, handleEdit, handleClick }) => {
                     </Typography>
                 )}
 
-                {Items.length === 0 && <Chip label="Belum Tersedia" sx={{ borderRadius: 2, marginTop: 0.5 }} />}
+                {Items.length === 0 && <Chip label="Paket Belum Tersedia" sx={{ borderRadius: 2, marginTop: 0.5 }} />}
             </CardContent>
         </Card>
     );

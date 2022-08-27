@@ -36,7 +36,7 @@ const admins = {
             icon: icons.IconUsers,
             children: [
                 {
-                    id: 'list',
+                    id: 'users',
                     title: 'List',
                     type: 'item',
                     url: '/app/users'
@@ -50,13 +50,13 @@ const admins = {
             icon: icons.IconReceipt,
             children: [
                 {
-                    id: 'list',
+                    id: 'orders',
                     title: 'List',
                     type: 'item',
                     url: '/app/orders'
                 },
                 {
-                    id: 'create',
+                    id: 'orders-create',
                     title: 'Create',
                     type: 'item',
                     url: '/app/orders/create'
@@ -70,7 +70,7 @@ const admins = {
             icon: icons.IconBuildingStore,
             children: [
                 {
-                    id: 'list',
+                    id: 'products',
                     title: 'List',
                     type: 'item',
                     url: '/app/products'
@@ -84,7 +84,7 @@ const admins = {
             icon: icons.IconBuilding,
             children: [
                 {
-                    id: 'list',
+                    id: 'brands',
                     title: 'List',
                     type: 'item',
                     url: '/app/brands'

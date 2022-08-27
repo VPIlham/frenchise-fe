@@ -6,7 +6,7 @@ import DetailPage from 'views/detail-brand';
 import UserOrderPage from 'views/user-orders';
 
 import CustomLayout from 'layout/CustomLayout';
-
+import ProtectedRoute from './ProtectedRoute';
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const LandingRoutes = {
@@ -19,7 +19,7 @@ const LandingRoutes = {
         },
         {
             path: '/pesanan-saya',
-            element: <UserOrderPage />
+            element: <ProtectedRoute component={UserOrderPage} roles={['buyer']} />
         },
         {
             path: '/franchise/:slug',
