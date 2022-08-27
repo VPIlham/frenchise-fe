@@ -112,22 +112,21 @@ const ListOrderPage = () => {
                 filter: false
             }
         },
-        profile.role === 'seller'
-            ? {
-                  name: 'id',
-                  label: 'Action',
-                  options: {
-                      filter: false,
-                      customBodyRender: (value, tableMeta, updateValue) => (
-                          <>
-                              <Button variant="outlined" color="primary" sx={{ mr: 1 }} onClick={() => edit(value)}>
-                                  Edit
-                              </Button>
-                          </>
-                      )
-                  }
-              }
-            : null
+        {
+            name: 'id',
+            label: 'Action',
+            options: {
+                filter: false,
+                display: profile.role === 'seller',
+                customBodyRender: (value, tableMeta, updateValue) => (
+                    <>
+                        <Button variant="outlined" color="primary" sx={{ mr: 1 }} onClick={() => edit(value)}>
+                            Edit
+                        </Button>
+                    </>
+                )
+            }
+        }
     ];
 
     return (
