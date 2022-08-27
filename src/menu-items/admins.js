@@ -74,12 +74,6 @@ const admins = {
                     title: 'List',
                     type: 'item',
                     url: '/app/products'
-                },
-                {
-                    id: 'create',
-                    title: 'Create',
-                    type: 'item',
-                    url: '/app/products/create'
                 }
             ]
         },

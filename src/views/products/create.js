@@ -45,7 +45,7 @@ const AddProductsPage = () => {
         price: 0,
         description: '',
         UserId: profile.id,
-        BrandId: 1,
+        BrandId: profile.Brand.id,
         image: ''
     });
 
@@ -79,20 +79,6 @@ const AddProductsPage = () => {
                             style={{ 'margin-top': '8px' }}
                             onChange={(e) => setForm({ ...form, price: e.target.value })}
                         />
-                    </Grid>
-                    <Grid item xs={7}>
-                        <span>Brand</span>
-                        <br />
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            label="Brand"
-                            onChange={(e) => setForm({ ...form, brandId: e.target.value })}
-                        >
-                            {/* <MenuItem value={50}>{Brands.name}</MenuItem> */}
-                            <MenuItem value={50}>Ten</MenuItem>
-                            <MenuItem value={50}>Ten</MenuItem>
-                        </Select>
                     </Grid>
                     <Grid item xs={7}>
                         <span item xs={4}>

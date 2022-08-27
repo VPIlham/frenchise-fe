@@ -6,17 +6,20 @@ import MainCard from 'ui-component/cards/MainCard';
 import { Avatar, Button, Grid } from '@mui/material';
 import { URL_DOMAIN } from 'core/constant';
 import toRupiah from 'utils/toRupiah';
+import useProfile from 'hooks/useProfile';
 
 const ProductsPage = () => {
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
+    const [profile] = useProfile();
 
     const getData = () => {
         getProducts((result) => {
             const data = result.data.map((value) => {
                 value = {
                     ...value,
-                    image: null
+                    image: null,
+                    brandName: value.Brand.name
                 };
                 if (value.Upload != null) {
                     value.image = value.Upload.path;
@@ -81,28 +84,28 @@ const ProductsPage = () => {
             }
         },
         {
-            name: `BrandId`,
+            name: `brandName`,
             label: 'Brand',
             options: {
                 filter: true,
-                sort: false,
-                customBodyRender: (value) => <>BrandId</>
+                sort: false
             }
         },
         {
             name: 'id',
             label: 'Action',
             options: {
+                display: profile.role === 'seller',
                 filter: false,
                 customBodyRender: (value) => (
-                    <>
+                    <div>
                         <Button variant="outlined" color="primary" sx={{ mr: 1 }} onClick={() => edit(value)}>
                             Edit
                         </Button>
                         <Button variant="outlined" onClick={() => hapus(value)} color="warning">
                             Hapus
                         </Button>
-                    </>
+                    </div>
                 )
             }
         }

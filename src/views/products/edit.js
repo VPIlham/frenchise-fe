@@ -25,7 +25,7 @@ const EditProductPage = () => {
     price: 0,
     description: '',
     UserId: profile.id,
-    BrandId: 1,
+    BrandId: profile.Brand.id,
     images: ''
   });
 
