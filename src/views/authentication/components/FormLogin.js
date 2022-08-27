@@ -4,9 +4,11 @@ import { useNavigate } from 'react-router-dom';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
+    Backdrop,
     Box,
     Button,
     Checkbox,
+    CircularProgress,
     Divider,
     FormControl,
     FormControlLabel,
@@ -42,6 +44,8 @@ const FormLogin = ({ ...others }) => {
     const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
     const customization = useSelector((state) => state.customization);
     const [checked, setChecked] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -55,9 +59,10 @@ const FormLogin = ({ ...others }) => {
     const [users, setUsers] = useState([]);
 
     const submitHandler = (value) => {
+        setIsLoading(true);
         login(value)
             .then((val) => {
-                console.log(val);
+                setIsLoading(false);
                 if (val.status !== 500) {
                     setUsers(val);
                     localStorage.setItem('users', JSON.stringify(val.data.data));
@@ -69,12 +74,16 @@ const FormLogin = ({ ...others }) => {
                 }
             })
             .catch((err) => {
+                setIsLoading(false);
                 console.log('err', err);
             });
     };
 
     return (
         <>
+            <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Grid container direction="column" justifyContent="center" spacing={2}>
                 <Grid item xs={8} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>

@@ -5,9 +5,11 @@ import { useSelector } from 'react-redux';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
+    Backdrop,
     Box,
     Button,
     Checkbox,
+    CircularProgress,
     Divider,
     FormControl,
     FormControlLabel,
@@ -49,7 +51,7 @@ const Register = ({ ...others }) => {
     const customization = useSelector((state) => state.customization);
     const [showPassword, setShowPassword] = useState(false);
     const [checked, setChecked] = useState(true);
-
+    const [isLoading, setIsLoading] = useState(false);
     const [strength, setStrength] = useState(0);
     const [level, setLevel] = useState();
 
@@ -79,8 +81,10 @@ const Register = ({ ...others }) => {
     const [users, setUsers] = useState([]);
 
     const submitHandler = (value) => {
+        setIsLoading(true);
         addUser(value)
             .then((val) => {
+                setIsLoading(false);
                 if (val.status !== 500) {
                     setUsers(val);
                     localStorage.setItem('users', JSON.stringify(val.data.data));
@@ -92,12 +96,16 @@ const Register = ({ ...others }) => {
                 }
             })
             .catch((err) => {
+                setIsLoading(false);
                 console.log('err', err);
             });
     };
 
     return (
         <>
+            <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Grid container direction="column" justifyContent="center" spacing={2}>
                 <Grid item xs={12} container alignItems="center" justifyContent="center">
                     <Box sx={{ mb: 2 }}>

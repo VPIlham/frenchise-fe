@@ -1,16 +1,32 @@
 // material-ui
-import { Typography, Button, Grid, ImageList, ImageListItem, CardMedia, Stack, Skeleton } from '@mui/material';
+import {
+    Typography,
+    Button,
+    Grid,
+    ImageList,
+    ImageListItem,
+    CardMedia,
+    Stack,
+    Skeleton,
+    Avatar,
+    Chip,
+    Backdrop,
+    CircularProgress
+} from '@mui/material';
 import { Box, fontFamily } from '@mui/system';
 import axios from 'axios';
-import { URL_API } from 'core/constant';
+import { IMG_DEFAULT, URL_API, URL_DOMAIN } from 'core/constant';
 import useProfile from 'hooks/useProfile';
+import moment from 'moment';
 import MUIDataTable from 'mui-datatables';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 // project imports
 import MainCard from 'ui-component/cards/MainCard';
 import { greetings } from 'utils/greetings';
+import toRupiah from 'utils/toRupiah';
 // import CardItem from './components/CardItem';
 
 // ==============================|| SAMPLE PAGE ||============================== //
@@ -27,7 +43,7 @@ const UserOrdersPage = () => {
         try {
             const result = await axios({
                 method: 'GET',
-                url: `${URL_API}/orders?populate=Item.Brand,User&filters[User][id]=${profile.id}`
+                url: `${URL_API}/orders?populate=*&filters[User][id]=${profile.id}`
             });
 
             if (result.status === 200) {
@@ -46,13 +62,44 @@ const UserOrdersPage = () => {
         get();
     }, []);
 
+    const handleCancel = async (id) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setIsLoading(true);
+                const res = await axios({
+                    method: 'DELETE',
+                    url: `${URL_API}/orders/${id}`
+                });
+
+                if (res.status === 200) {
+                    get();
+                    Swal.fire('Deleted!', 'Your Product has been deleted.', 'success');
+                } else {
+                    setIsLoading(false);
+                }
+            }
+        });
+    };
+
     return (
         <>
+            <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={isLoading}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
             <Typography variant="h1" gutterBottom sx={{ fontWeight: 500 }}>{`${greetings()}, ${profile?.name}`}</Typography>
             <Typography variant="h4" sx={{ fontWeight: 400, marginBottom: 4 }}>
                 Ini adalah riwayat pendaftaran Kemitraan Kamu
             </Typography>
             <MUIDataTable
+                data={dataOrders}
                 options={{
                     filter: false,
                     download: false,
@@ -64,34 +111,86 @@ const UserOrdersPage = () => {
                 }}
                 columns={[
                     {
-                        name: 'name',
+                        name: 'id',
                         label: 'LOGO',
                         options: {
-                            filter: true,
-                            sort: true
+                            filter: false,
+                            sort: false,
+                            customBodyRender: (value) => {
+                                const data = dataOrders.find((item) => item.id === value);
+                                const { Brand } = data.Item;
+                                const { Upload } = Brand;
+
+                                return <Avatar variant="rounded" sx={{ height: 50, width: 50 }} src={`${URL_DOMAIN}${Upload?.path}`} />;
+                            }
                         }
                     },
                     {
-                        name: 'name',
+                        name: 'id',
                         label: 'KEMITRAAN',
                         options: {
-                            filter: true,
-                            sort: true
+                            filter: false,
+                            sort: false,
+                            customBodyRender: (value) => {
+                                const data = dataOrders.find((item) => item.id === value);
+
+                                const { name, price, Brand } = data.Item;
+
+                                return (
+                                    <>
+                                        <Typography gutterBottom sx={{ fontWeight: 500 }}>
+                                            {Brand.name}
+                                        </Typography>
+                                        <Typography gutterBottom>{name}</Typography>
+                                        <Typography>{toRupiah(price)}</Typography>
+                                    </>
+                                );
+                            }
                         }
                     },
                     {
-                        name: 'name',
+                        name: 'createdAt',
                         label: 'DIBUAT',
                         options: {
-                            filter: true,
-                            sort: true
+                            filter: false,
+                            sort: false,
+                            customBodyRender: (value) => moment(value).format('LLL')
                         }
                     },
                     {
-                        name: 'role',
+                        name: 'statusPayment',
                         label: 'PEMBAYARAN',
                         options: {
-                            filter: false
+                            filter: false,
+                            sort: false
+                        }
+                    },
+                    {
+                        name: 'id',
+                        label: 'STATUS',
+                        options: {
+                            filter: false,
+                            sort: false,
+                            customBodyRender: (value) => {
+                                const data = dataOrders.find((item) => item.id === value);
+                                return (
+                                    <>
+                                        {data.deletedAt === null ? (
+                                            <Chip
+                                                label="Pengajuan diproses"
+                                                color="success"
+                                                sx={{ borderRadius: 2, marginTop: 0.5, bgcolor: '#E4F3EA', color: '#059659' }}
+                                            />
+                                        ) : (
+                                            <Chip
+                                                label="Pengajuan dibatalkan"
+                                                color="error"
+                                                sx={{ borderRadius: 2, marginTop: 0.5, bgcolor: '#FFD1D1', color: '#E00755' }}
+                                            />
+                                        )}
+                                    </>
+                                );
+                            }
                         }
                     },
                     {
@@ -99,13 +198,20 @@ const UserOrdersPage = () => {
                         label: 'TINDAKAN',
                         options: {
                             filter: false,
-                            customBodyRender: (value) => (
-                                <>
-                                    <Button variant="outlined" color="primary" sx={{ mr: 1 }}>
-                                        Edit
-                                    </Button>
-                                </>
-                            )
+                            sort: false,
+                            customBodyRender: (value) => {
+                                const data = dataOrders.find((item) => item.id === value);
+
+                                return (
+                                    <>
+                                        {data.deletedAt === null && (
+                                            <Button variant="text" color="error" onClick={() => handleCancel(value)} sx={{ mr: 1 }}>
+                                                Batalkan
+                                            </Button>
+                                        )}
+                                    </>
+                                );
+                            }
                         }
                     }
                 ]}

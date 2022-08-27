@@ -6,7 +6,7 @@ import Loadable from 'ui-component/Loadable';
 import ProtectedRoute from './ProtectedRoute';
 
 // dashboard routing
-const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default')));
+const Dashboard = Loadable(lazy(() => import('views/dashboard')));
 
 // Admin page routing
 const ProductPage = Loadable(lazy(() => import('views/products/index')));
@@ -29,11 +29,11 @@ const MainRoutes = {
     children: [
         {
             path: '/',
-            element: <ProtectedRoute component={DashboardDefault} roles={['admin', 'seller']} />
+            element: <ProtectedRoute component={Dashboard} roles={['admin', 'seller']} />
         },
         {
             path: '/dashboard',
-            element: <ProtectedRoute component={DashboardDefault} roles={['admin', 'seller']} />
+            element: <ProtectedRoute component={Dashboard} roles={['admin', 'seller']} />
         },
         {
             path: '/users',
