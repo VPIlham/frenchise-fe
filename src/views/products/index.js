@@ -14,6 +14,7 @@ const ProductsPage = () => {
     const [profile] = useProfile();
 
     const getData = () => {
+        const filter = profile.role === 'seller' ? `&userId=${profile.id}` : null;
         getProducts((result) => {
             const data = result.data.map((value) => {
                 value = {
@@ -27,8 +28,8 @@ const ProductsPage = () => {
                 return value;
             });
             setProducts(data);
-            console.log(data);
-        });
+            // console.log(data);
+        }, filter);
     };
 
     useEffect(() => {
@@ -36,17 +37,12 @@ const ProductsPage = () => {
     }, []);
 
     const hapus = (id) => {
-        console.log(id);
-        removeProduct(+id);
-        navigate(`/app/products`);
+        removeProduct(+id, getData);
     };
 
     const edit = (id) => {
-        console.log(id);
         navigate(`/app/products/${id}`);
     };
-
-    console.log();
 
     const columns = [
         {

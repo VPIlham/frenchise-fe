@@ -16,7 +16,7 @@ const addProducts = async (values) => {
             BrandId
         };
 
-        formData.append('image', values.image, values.image.name);
+        formData.append('image', values.image);
 
         formData.append('data', JSON.stringify(tempObj));
 
@@ -32,16 +32,17 @@ const addProducts = async (values) => {
         Swal.fire('Berhasil', 'Add Produk Berhasil!', 'success');
         return result;
     } catch (err) {
-        Swal.fire('Gagal', 'Add Produk Gagal!', 'error');
+        console.log(err);
+        Swal.fire('Gagal', err.response.data.message, 'error');
         return err.response;
     }
 };
 
-const getProducts = async (cb) => {
+const getProducts = async (cb, filter) => {
     try {
         const result = await axios({
             method: 'GET',
-            url: `${URL_API}/items?populate=Brand,Upload`
+            url: `${URL_API}/items?populate=Brand,Upload,User${filter}`
         });
         cb(result.data);
     } catch (err) {
@@ -98,7 +99,7 @@ const updateProduct = async (values) => {
     }
 };
 
-const removeProduct = async (id) => {
+const removeProduct = async (id, getProduct) => {
     try {
         Swal.fire({
             title: 'Are you sure?',
@@ -110,11 +111,14 @@ const removeProduct = async (id) => {
             confirmButtonText: 'Yes, delete it!'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const result = await axios({
+                const res = await axios({
                     method: 'DELETE',
                     url: `${URL_API}/items/${id}`
                 });
 
+                if (res.status === 200) {
+                    await getProduct();
+                }
                 Swal.fire('Deleted!', 'Your Product has been deleted.', 'success');
             }
         });

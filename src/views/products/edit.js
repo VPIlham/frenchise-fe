@@ -76,20 +76,6 @@ const EditProductPage = () => {
             />
           </Grid>
           <Grid item xs={7}>
-            <span>Brand</span>
-            <br />
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="Brand"
-              onChange={(e) => setForm({ ...form, brandId: e.target.value })}
-            >
-              {/* <MenuItem value={50}>{Brands.name}</MenuItem> */}
-              <MenuItem value={50}>Ten</MenuItem>
-              <MenuItem value={50}>Ten</MenuItem>
-            </Select>
-          </Grid>
-          <Grid item xs={7}>
             <span item xs={4}>
               Image
             </span>

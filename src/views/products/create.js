@@ -49,9 +49,12 @@ const AddProductsPage = () => {
         image: ''
     });
 
-    const submitHandler = () => {
-        addProducts(form);
-        navigation('/app/products');
+    const submitHandler = async () => {
+        const tambah = await addProducts(form);
+        console.log(tambah);
+        if (tambah.status === 200) {
+            navigation('/app/products');
+        }
     };
 
     return (
