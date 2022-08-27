@@ -54,12 +54,6 @@ const admins = {
                     title: 'List',
                     type: 'item',
                     url: '/app/orders'
-                },
-                {
-                    id: 'orders-create',
-                    title: 'Create',
-                    type: 'item',
-                    url: '/app/orders/create'
                 }
             ]
         },

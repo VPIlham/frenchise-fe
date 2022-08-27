@@ -6,7 +6,19 @@ const getOrderAll = async (cb) => {
     try {
         const orders = await axios({
             method: 'GET',
-            url: `${URL_API}/orders?populate=Upload`
+            url: `${URL_API}/orders?populate=Item.Brand,User`
+        });
+        cb(orders.data);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const getOrderBySeller = async (cb, userID) => {
+    try {
+        const orders = await axios({
+            method: 'GET',
+            url: `${URL_API}/orders?populate=Item.Brand,User&filters[Item][UserId]=${userID}`
         });
         cb(orders.data);
     } catch (err) {
@@ -26,4 +38,4 @@ const getOrderById = async (cb, id) => {
     }
 };
 
-export { getOrderAll, getOrderById };
+export { getOrderAll, getOrderById, getOrderBySeller };
