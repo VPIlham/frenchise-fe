@@ -30,7 +30,7 @@ const getOrderById = async (cb, id) => {
     try {
         const users = await axios({
             method: 'GET',
-            url: `${URL_API}/orders/${id}`
+            url: `${URL_API}/orders/${id}?populate=Item.Brand,User`
         });
         cb(users.data);
     } catch (err) {
@@ -38,4 +38,20 @@ const getOrderById = async (cb, id) => {
     }
 };
 
-export { getOrderAll, getOrderById, getOrderBySeller };
+const updateOrderById = async (value, id) => {
+    try {
+        const formData = {
+            statusPayment: value.statusPayment
+        };
+        const users = await axios({
+            method: 'PUT',
+            url: `${URL_API}/orders/${id}`,
+            data: formData
+        });
+        console.log(users);
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+export { getOrderAll, getOrderById, getOrderBySeller, updateOrderById };

@@ -22,7 +22,6 @@ const MyBrandPage = () => {
 
     const submitHandler = () => {
         updateBrand(form);
-        // navigation('/products');
     };
 
     const [profile] = useProfile();
