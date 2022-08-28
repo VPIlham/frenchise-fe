@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 // material-ui
-import { Box, Grid, Button, TextField, Select, MenuItem } from '@mui/material';
+import { Box, Grid, Button, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router';

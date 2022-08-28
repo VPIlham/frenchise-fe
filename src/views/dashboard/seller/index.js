@@ -1,11 +1,7 @@
 import { Grid } from '@mui/material';
 import { gridSpacing } from 'store/constant';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import useProfile from '../../../hooks/useProfile';
-import EarningCard from '../Default/EarningCard';
-import TotalIncomeDarkCard from '../Default/TotalIncomeDarkCard';
-import TotalIncomeLightCard from '../Default/TotalIncomeLightCard';
 import TotalOrderLineChartCard from '../Default/TotalOrderLineChartCard';
 import { URL_API } from '../../../core/constant';
 import axios from 'axios';
@@ -13,7 +9,6 @@ import axios from 'axios';
 const DashboardSeller = () => {
     const [summarys, setSummarys] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
     const [profile] = useProfile();
 
     const getSummarys = async () => {
