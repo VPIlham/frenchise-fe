@@ -43,7 +43,7 @@ const UserOrdersPage = () => {
         try {
             const result = await axios({
                 method: 'GET',
-                url: `${URL_API}/orders?populate=*&filters[User][id]=${profile.id}`
+                url: `${URL_API}/orders?populate=*&filters[User][id]=${profile.id}&paranoid=false`
             });
 
             if (result.status === 200) {

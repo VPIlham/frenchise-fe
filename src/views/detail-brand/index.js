@@ -247,18 +247,20 @@ const DetailBrandPage = () => {
                                         </Select>
                                     </FormControl>
 
-                                    <LoadingButton
-                                        sx={{ marginTop: 5 }}
-                                        variant="contained"
-                                        disabled={form.itemId === null || form.statusPayment === null}
-                                        disableElevation
-                                        color="secondary"
-                                        fullWidth
-                                        loading={isSubmitted}
-                                        onClick={createOrder}
-                                    >
-                                        Daftar Kemitraan
-                                    </LoadingButton>
+                                    {profile.role === 'buyer' && (
+                                        <LoadingButton
+                                            sx={{ marginTop: 5 }}
+                                            variant="contained"
+                                            disabled={form.itemId === null || form.statusPayment === null}
+                                            disableElevation
+                                            color="secondary"
+                                            fullWidth
+                                            loading={isSubmitted}
+                                            onClick={createOrder}
+                                        >
+                                            Daftar Kemitraan
+                                        </LoadingButton>
+                                    )}
                                 </>
                             )}
 
