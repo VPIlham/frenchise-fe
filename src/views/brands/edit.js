@@ -44,8 +44,7 @@ const EditBrandPage = () => {
     }, []);
 
     const submitHandler = () => {
-        updateBrand(form);
-        navigate('/app/brands');
+        updateBrand(form).then(() => navigate('/app/brands'));
     };
 
     return (
