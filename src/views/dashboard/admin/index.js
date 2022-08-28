@@ -46,12 +46,15 @@ const DashboardAdmin = () => {
                     </Grid>
                     <Grid item lg={3} md={3} sm={6} xs={12}>
                         <EarningCard value2={summarys.totalProducts} text2="Total Product" />
+                        {/* <TotalIncomeDarkCard /> */}
                     </Grid>
                     <Grid item lg={3} md={3} sm={6} xs={12}>
                         <EarningCard value3={summarys.totalOrders} text2="Total Order" />
+                        {/* <TotalIncomeLightCard /> */}
                     </Grid>
                     <Grid item lg={3} md={3} sm={6} xs={12}>
                         <EarningCard value4={summarys.totalBrand} text2="Total Brand" />
+                        {/* <TotalOrderLineChartCard /> */}
                     </Grid>
                 </Grid>
             </Grid>
