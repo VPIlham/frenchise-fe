@@ -7,6 +7,7 @@ import { URL_DOMAIN } from 'core/constant';
 import { useNavigate } from 'react-router';
 import { getOrderAll, getOrderBySeller } from 'services/order';
 import useProfile from 'hooks/useProfile';
+import toRupiah from 'utils/toRupiah';
 
 const ListOrderPage = () => {
     const [orders, setOrders] = useState([]);
@@ -25,7 +26,7 @@ const ListOrderPage = () => {
                         buyer: value.User.name,
                         email: value.User.email,
                         statusPayment: value.statusPayment,
-                        harga: value.Item.price,
+                        price: value.Item.price,
                         brand: value.Item.Brand.name
                     };
 
@@ -42,7 +43,7 @@ const ListOrderPage = () => {
                         buyer: value.User.name,
                         email: value.User.email,
                         statusPayment: value.statusPayment,
-                        harga: value.Item.price,
+                        price: value.Item.price,
                         brand: value.Item.Brand.name
                     };
                     if (value.Upload != null) {
@@ -86,7 +87,8 @@ const ListOrderPage = () => {
             label: 'Harga',
             options: {
                 filter: true,
-                sort: true
+                sort: true,
+                customBodyRender: (value) => <>{toRupiah(value)}</>
             }
         },
         {
@@ -133,7 +135,20 @@ const ListOrderPage = () => {
         <MainCard title="List Order">
             <Grid container spacing={2}>
                 <Grid item xs={12} justifyItems="center" alignItems="center">
-                    <MUIDataTable title="Order" data={orders} columns={columns} />
+                    <MUIDataTable
+                        title="Order"
+                        data={orders}
+                        columns={columns}
+                        options={{
+                            filter: false,
+                            download: false,
+                            print: false,
+                            viewColumns: false,
+                            search: false,
+                            elevation: 0,
+                            selectableRows: 'none'
+                        }}
+                    />
                 </Grid>
             </Grid>
         </MainCard>
