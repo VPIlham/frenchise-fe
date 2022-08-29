@@ -9,7 +9,6 @@ import toRupiah from 'utils/toRupiah';
 import useProfile from 'hooks/useProfile';
 
 const ProductsPage = () => {
-    const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     const [profile] = useProfile();
 
@@ -38,7 +37,6 @@ const ProductsPage = () => {
                     }
                     return value;
                 });
-                setProducts(data);
                 setTable({ ...table, data, count: result.meta.pagination.total });
                 // console.log(data);
             },
