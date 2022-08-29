@@ -240,7 +240,7 @@ const DetailBrandPage = () => {
                                             <>
                                                 <Typography sx={{ fontSize: 16, fontWeight: 900, color: '#5555ef' }} marginTop={2}>
                                                     25% dari total bayar ={' '}
-                                                    {toRupiah(form.price * 0.25, {
+                                                    {toRupiah(form.price * 0.25 || 0, {
                                                         formal: false,
                                                         spaceBeforeUnit: true,
                                                         floatingPoint: 0
@@ -252,7 +252,7 @@ const DetailBrandPage = () => {
                                             <>
                                                 <Typography sx={{ fontSize: 16, fontWeight: 900, color: '#5555ef' }} marginTop={2}>
                                                     Cicilan{' '}
-                                                    {toRupiah(form.price / 36, {
+                                                    {toRupiah(form.price / 36 || 0, {
                                                         formal: false,
                                                         spaceBeforeUnit: true,
                                                         floatingPoint: 0
@@ -264,7 +264,7 @@ const DetailBrandPage = () => {
                                         {form.statusPayment === 'cash' ? (
                                             <>
                                                 <Typography sx={{ fontSize: 16, fontWeight: 900, color: '#5555ef' }} marginTop={2}>
-                                                    {toRupiah(form.price, {
+                                                    {toRupiah(form.price || 0, {
                                                         formal: false,
                                                         spaceBeforeUnit: true,
                                                         floatingPoint: 0
