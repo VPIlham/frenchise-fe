@@ -231,6 +231,49 @@ const DetailBrandPage = () => {
                                         <Alert severity="info">Paket Belum tersedia</Alert>
                                     )}
 
+                                    <FormControl fullWidth sx={{ marginTop: 1 }}>
+                                        <Typography sx={{ fontSize: 14, fontWeight: 700 }} marginTop={2}>
+                                            ATM BCA : 112366322 <br /> Atas Nama : PT BukaFrenchise <br />
+                                        </Typography>
+                                        Transfer dengan nominal :
+                                        {form.statusPayment === 'dp' ? (
+                                            <>
+                                                <Typography sx={{ fontSize: 16, fontWeight: 900, color: '#5555ef' }} marginTop={2}>
+                                                    25% dari total bayar ={' '}
+                                                    {toRupiah(form.price * 0.25, {
+                                                        formal: false,
+                                                        spaceBeforeUnit: true,
+                                                        floatingPoint: 0
+                                                    })}
+                                                </Typography>
+                                            </>
+                                        ) : null}
+                                        {form.statusPayment === 'cicilan' ? (
+                                            <>
+                                                <Typography sx={{ fontSize: 16, fontWeight: 900, color: '#5555ef' }} marginTop={2}>
+                                                    Cicilan{' '}
+                                                    {toRupiah(form.price / 36, {
+                                                        formal: false,
+                                                        spaceBeforeUnit: true,
+                                                        floatingPoint: 0
+                                                    })}{' '}
+                                                    / bln
+                                                </Typography>
+                                            </>
+                                        ) : null}
+                                        {form.statusPayment === 'cash' ? (
+                                            <>
+                                                <Typography sx={{ fontSize: 16, fontWeight: 900, color: '#5555ef' }} marginTop={2}>
+                                                    {toRupiah(form.price, {
+                                                        formal: false,
+                                                        spaceBeforeUnit: true,
+                                                        floatingPoint: 0
+                                                    })}
+                                                </Typography>
+                                            </>
+                                        ) : null}
+                                    </FormControl>
+
                                     <FormControl fullWidth sx={{ marginTop: 4 }}>
                                         <InputLabel id="demo-simple-select-label">Pembayaran</InputLabel>
                                         <Select
