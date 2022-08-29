@@ -66,7 +66,7 @@ const updateProduct = async (values) => {
     try {
         const formData = new FormData();
 
-        const { name, price, description, UserId, BrandId, id } = values;
+        const { name, images, price, description, UserId, BrandId, id } = values;
 
         const tempObj = {
             name,
@@ -76,7 +76,7 @@ const updateProduct = async (values) => {
             BrandId
         };
         if (typeof images === 'object') {
-            formData.append('image', values.image, values.image.name);
+            formData.append('image', images, images.name);
         }
         formData.append('data', JSON.stringify(tempObj));
 

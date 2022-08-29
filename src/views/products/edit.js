@@ -75,30 +75,39 @@ const EditProductPage = () => {
               onChange={(e) => setForm({ ...form, price: e.target.value })}
             />
           </Grid>
-          <Grid item xs={7}>
-            <span item xs={4}>
-              Image
-            </span>
-            <Button variant="contained" component="label" style={{ 'margin-left': '15px' }}>
-              Upload File
-              <input type="file" hidden onChange={(e) => setForm({ ...form, image: e.target.files[0] })} />
-            </Button>
-          </Grid>
-          <Grid item xs={7}>
-            <span item xs={4}>
-              Image Sekarang
-            </span>
-            {form.images === productImg ? (
-              <img
-                style={{ marginLeft: 15 }}
-                src={`${URL_DOMAIN}${form.images}`}
-                alt={form.name}
-                width="300"
-                loading="lazy"
-              />
-            ) : (
-              <img style={{ marginLeft: 15 }} src={`${productImg}`} alt={form.name} width="300" loading="lazy" />
-            )}
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                Image
+                <Button variant="contained" component="label" style={{ 'margin-left': '15px' }}>
+                  Upload File
+                  <input
+                    type="file"
+                    hidden
+                    accept="image/*"
+                    onChange={(e) => {
+                      setForm({ ...form, images: e.target.files[0] });
+                      setProductImg(URL.createObjectURL(e.target.files[0]));
+                    }}
+                  />
+                </Button>
+              </Grid>
+
+              <Grid item xs={6}>
+                Image Sekarang
+                {form.images === productImg ? (
+                  <img
+                    style={{ marginLeft: 15 }}
+                    src={`${URL_DOMAIN}${form.images}`}
+                    alt={form.name}
+                    width="300"
+                    loading="lazy"
+                  />
+                ) : (
+                  <img style={{ marginLeft: 15 }} src={`${productImg}`} alt={form.name} width="300" loading="lazy" />
+                )}
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={7}>
             <span>Deskripsi</span>
