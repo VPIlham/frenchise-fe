@@ -2,14 +2,15 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { URL_API } from '../core/constant';
 
-const getUserAll = async (cb) => {
+const getUserAll = async (table, cb) => {
     try {
         const users = await axios({
             method: 'GET',
-            url: `${URL_API}/users?sort=createdAt&direction=desc&page=1&pageSize=10&q`
+            url: `${URL_API}/users?page=${table.page}&pageSize=${table.limit}${table.sort}&q`
         });
         cb(users.data);
     } catch (err) {
+        // ${table.pagination}${table.sort}${table.search}
         console.log(err);
     }
 };
