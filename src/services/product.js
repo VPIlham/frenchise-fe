@@ -38,11 +38,11 @@ const addProducts = async (values) => {
     }
 };
 
-const getProducts = async (cb, filter) => {
+const getProducts = async (table, cb, filter) => {
     try {
         const result = await axios({
             method: 'GET',
-            url: `${URL_API}/items?populate=Brand,Upload,User${filter}`
+            url: `${URL_API}/items?page=${table.page}&pageSize=${table.limit}&populate=Brand,Upload,User${table.sort}${filter}`
         });
         cb(result.data);
     } catch (err) {
